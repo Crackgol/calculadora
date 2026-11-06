@@ -112,6 +112,25 @@ def ejecutar_redondeo(historial):
     print(f"Resultado: {formatear_numero(resultado)}")
 
 
+def mostrar_historial(historial):
+    """Muestra las operaciones registradas durante la ejecución."""
+    print("\n--- Historial de operaciones ---")
+    if not historial:
+        print("El historial está vacío.")
+        return
+    for indice, operacion in enumerate(historial, start=1):
+        print(f"{indice}. {operacion}")
+
+
+def limpiar_historial(historial):
+    """Elimina todas las operaciones del historial."""
+    if not historial:
+        print("\nEl historial ya está vacío.")
+        return
+    historial.clear()
+    print("\nHistorial eliminado correctamente.")
+
+
 def mostrar_menu():
     """Muestra las operaciones disponibles."""
     print("\n" + "=" * 44)
@@ -131,6 +150,9 @@ def mostrar_menu():
     print(" 10. Factorial")
     print(" 11. Promedio")
     print(" 12. Redondeo")
+    print("Historial")
+    print(" 13. Ver historial")
+    print(" 14. Limpiar historial")
     print("  0. Salir")
     print("=" * 44)
 
@@ -229,8 +251,12 @@ def main():
                 ejecutar_promedio(historial)
             elif opcion == 12:
                 ejecutar_redondeo(historial)
+            elif opcion == 13:
+                mostrar_historial(historial)
+            elif opcion == 14:
+                limpiar_historial(historial)
             else:
-                print("\nOpción inválida. Elige un número del 0 al 12.")
+                print("\nOpción inválida. Elige un número del 0 al 14.")
         except (ValueError, ZeroDivisionError, TypeError, OverflowError) as error:
             print(f"\nError: {error}")
         except (KeyboardInterrupt, EOFError):
