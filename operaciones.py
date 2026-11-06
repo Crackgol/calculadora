@@ -46,3 +46,22 @@ def raiz_cuadrada(numero):
     if numero < 0:
         raise ValueError("No se puede calcular la raíz cuadrada de un número negativo.")
     return math.sqrt(numero)
+
+
+def porcentaje(cantidad, tanto_por_ciento):
+    """Devuelve el porcentaje indicado de una cantidad."""
+    return cantidad * tanto_por_ciento / 100
+
+
+def valor_absoluto(numero):
+    """Devuelve el valor absoluto de un número."""
+    return abs(numero)
+
+
+def factorial(numero):
+    """Devuelve el factorial de un entero no negativo."""
+    if isinstance(numero, bool) or not isinstance(numero, int):
+        raise TypeError("El factorial solo acepta números enteros.")
+    if numero < 0:
+        raise ValueError("El factorial no está definido para números negativos.")
+    return math.factorial(numero)

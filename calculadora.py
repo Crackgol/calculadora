@@ -27,6 +27,21 @@ def leer_numero(mensaje):
             print("Entrada inválida. Ingresa un número, por ejemplo: 12, 3.5 o -2.")
 
 
+def leer_entero(mensaje, minimo=None):
+    """Solicita un número entero y repite hasta recibir una entrada válida."""
+    while True:
+        entrada = input(mensaje).strip()
+        try:
+            numero = int(entrada)
+        except ValueError:
+            print("Entrada inválida. Ingresa un número entero.")
+            continue
+        if minimo is not None and numero < minimo:
+            print(f"El número debe ser mayor o igual que {minimo}.")
+            continue
+        return numero
+
+
 def ejecutar_binaria(historial, nombre, funcion, etiqueta_a, etiqueta_b):
     """Solicita dos números, calcula y registra una operación binaria."""
     print(f"\n--- {nombre} ---")
@@ -51,6 +66,15 @@ def ejecutar_unaria(historial, nombre, funcion, etiqueta="Número"):
     print(f"Resultado: {formatear_numero(resultado)}")
 
 
+def ejecutar_factorial(historial):
+    """Solicita un entero no negativo y calcula su factorial."""
+    print("\n--- Factorial ---")
+    numero = leer_entero("Número entero no negativo: ", minimo=0)
+    resultado = operaciones.factorial(numero)
+    historial.append(f"Factorial({numero}) = {resultado}")
+    print(f"Resultado: {resultado}")
+
+
 def mostrar_menu():
     """Muestra las operaciones disponibles."""
     print("\n" + "=" * 44)
@@ -65,6 +89,9 @@ def mostrar_menu():
     print("  5. Potencia")
     print("  6. Módulo")
     print("  7. Raíz cuadrada")
+    print("  8. Porcentaje")
+    print("  9. Valor absoluto")
+    print(" 10. Factorial")
     print("  0. Salir")
     print("=" * 44)
 
@@ -143,8 +170,24 @@ def main():
                     "Raíz cuadrada",
                     operaciones.raiz_cuadrada,
                 )
+            elif opcion == 8:
+                ejecutar_binaria(
+                    historial,
+                    "Porcentaje",
+                    operaciones.porcentaje,
+                    "Cantidad",
+                    "Porcentaje (%)",
+                )
+            elif opcion == 9:
+                ejecutar_unaria(
+                    historial,
+                    "Valor absoluto",
+                    operaciones.valor_absoluto,
+                )
+            elif opcion == 10:
+                ejecutar_factorial(historial)
             else:
-                print("\nOpción inválida. Elige un número del 0 al 7.")
+                print("\nOpción inválida. Elige un número del 0 al 10.")
         except (ValueError, ZeroDivisionError, TypeError, OverflowError) as error:
             print(f"\nError: {error}")
         except (KeyboardInterrupt, EOFError):
