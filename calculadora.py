@@ -40,6 +40,17 @@ def ejecutar_binaria(historial, nombre, funcion, etiqueta_a, etiqueta_b):
     print(f"Resultado: {formatear_numero(resultado)}")
 
 
+def ejecutar_unaria(historial, nombre, funcion, etiqueta="Número"):
+    """Solicita un número, calcula y registra una operación unaria."""
+    print(f"\n--- {nombre} ---")
+    numero = leer_numero(f"{etiqueta}: ")
+    resultado = funcion(numero)
+    historial.append(
+        f"{nombre}({formatear_numero(numero)}) = {formatear_numero(resultado)}"
+    )
+    print(f"Resultado: {formatear_numero(resultado)}")
+
+
 def mostrar_menu():
     """Muestra las operaciones disponibles."""
     print("\n" + "=" * 44)
@@ -50,6 +61,10 @@ def mostrar_menu():
     print("  2. Resta")
     print("  3. Multiplicación")
     print("  4. División")
+    print("Operaciones ampliadas")
+    print("  5. Potencia")
+    print("  6. Módulo")
+    print("  7. Raíz cuadrada")
     print("  0. Salir")
     print("=" * 44)
 
@@ -106,8 +121,30 @@ def main():
                     "Dividendo",
                     "Divisor",
                 )
+            elif opcion == 5:
+                ejecutar_binaria(
+                    historial,
+                    "Potencia",
+                    operaciones.potencia,
+                    "Base",
+                    "Exponente",
+                )
+            elif opcion == 6:
+                ejecutar_binaria(
+                    historial,
+                    "Módulo",
+                    operaciones.modulo,
+                    "Dividendo",
+                    "Divisor",
+                )
+            elif opcion == 7:
+                ejecutar_unaria(
+                    historial,
+                    "Raíz cuadrada",
+                    operaciones.raiz_cuadrada,
+                )
             else:
-                print("\nOpción inválida. Elige un número del 0 al 4.")
+                print("\nOpción inválida. Elige un número del 0 al 7.")
         except (ValueError, ZeroDivisionError, TypeError, OverflowError) as error:
             print(f"\nError: {error}")
         except (KeyboardInterrupt, EOFError):
