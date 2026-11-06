@@ -42,6 +42,20 @@ def leer_entero(mensaje, minimo=None):
         return numero
 
 
+def leer_lista_numeros(mensaje):
+    """Solicita varios números separados por espacios o punto y coma."""
+    while True:
+        entrada = input(mensaje).strip()
+        if not entrada:
+            print("Ingresa al menos un número.")
+            continue
+        partes = entrada.replace(";", " ").split()
+        try:
+            return [float(parte.replace(",", ".")) for parte in partes]
+        except ValueError:
+            print("Entrada inválida. Separa los números con espacios o punto y coma.")
+
+
 def ejecutar_binaria(historial, nombre, funcion, etiqueta_a, etiqueta_b):
     """Solicita dos números, calcula y registra una operación binaria."""
     print(f"\n--- {nombre} ---")
@@ -75,6 +89,29 @@ def ejecutar_factorial(historial):
     print(f"Resultado: {resultado}")
 
 
+def ejecutar_promedio(historial):
+    """Solicita varios números y calcula su promedio."""
+    print("\n--- Promedio ---")
+    numeros = leer_lista_numeros("Números separados por espacios o punto y coma: ")
+    resultado = operaciones.promedio(numeros)
+    lista = ", ".join(formatear_numero(numero) for numero in numeros)
+    historial.append(f"Promedio([{lista}]) = {formatear_numero(resultado)}")
+    print(f"Resultado: {formatear_numero(resultado)}")
+
+
+def ejecutar_redondeo(historial):
+    """Solicita un número y la cantidad de decimales para redondearlo."""
+    print("\n--- Redondeo ---")
+    numero = leer_numero("Número a redondear: ")
+    decimales = leer_entero("Cantidad de decimales: ", minimo=0)
+    resultado = operaciones.redondear(numero, decimales)
+    historial.append(
+        f"Redondeo({formatear_numero(numero)}, {decimales}) = "
+        f"{formatear_numero(resultado)}"
+    )
+    print(f"Resultado: {formatear_numero(resultado)}")
+
+
 def mostrar_menu():
     """Muestra las operaciones disponibles."""
     print("\n" + "=" * 44)
@@ -92,6 +129,8 @@ def mostrar_menu():
     print("  8. Porcentaje")
     print("  9. Valor absoluto")
     print(" 10. Factorial")
+    print(" 11. Promedio")
+    print(" 12. Redondeo")
     print("  0. Salir")
     print("=" * 44)
 
@@ -186,8 +225,12 @@ def main():
                 )
             elif opcion == 10:
                 ejecutar_factorial(historial)
+            elif opcion == 11:
+                ejecutar_promedio(historial)
+            elif opcion == 12:
+                ejecutar_redondeo(historial)
             else:
-                print("\nOpción inválida. Elige un número del 0 al 10.")
+                print("\nOpción inválida. Elige un número del 0 al 12.")
         except (ValueError, ZeroDivisionError, TypeError, OverflowError) as error:
             print(f"\nError: {error}")
         except (KeyboardInterrupt, EOFError):

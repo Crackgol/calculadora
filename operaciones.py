@@ -65,3 +65,19 @@ def factorial(numero):
     if numero < 0:
         raise ValueError("El factorial no está definido para números negativos.")
     return math.factorial(numero)
+
+
+def promedio(numeros):
+    """Devuelve el promedio de una lista de números."""
+    if not numeros:
+        raise ValueError("Se requiere al menos un número para calcular el promedio.")
+    return sum(numeros) / len(numeros)
+
+
+def redondear(numero, decimales):
+    """Redondea un número a la cantidad de decimales indicada."""
+    if isinstance(decimales, bool) or not isinstance(decimales, int):
+        raise TypeError("La cantidad de decimales debe ser un número entero.")
+    if decimales < 0:
+        raise ValueError("La cantidad de decimales no puede ser negativa.")
+    return round(numero, decimales)
